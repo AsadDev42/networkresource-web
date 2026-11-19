@@ -91,9 +91,9 @@ export function StudioGround({ visible }: { visible?: () => boolean }) {
         <meshStandardMaterial color={p.ground} roughness={1} metalness={0} />
       </mesh>
       {[0, FLOOR_B_OFFSET].map((x) => (
-        <mesh key={x} rotation-x={-Math.PI / 2} position={[x, -0.215, 0]}>
+        <mesh key={x} rotation-x={-Math.PI / 2} position={[x, -0.205, 0]}>
           <planeGeometry args={[FLOOR.width + SHADOW_PAD * 2, FLOOR.depth + SHADOW_PAD * 2]} />
-          <meshBasicMaterial map={floorShadow()} transparent depthWrite={false} toneMapped={false} />
+          <meshBasicMaterial map={floorShadow()} transparent depthWrite={false} toneMapped={false} polygonOffset polygonOffsetFactor={-4} polygonOffsetUnits={-4} />
         </mesh>
       ))}
     </group>

@@ -185,6 +185,9 @@ function carpetTexture(color: string, seam: string) {
   return tex;
 }
 
+/** Width of the glowing border strip around each office floor. */
+const EDGE = 0.06;
+
 const deskMat = new MeshStandardMaterial({ color: "#ffffff", roughness: 0.48, metalness: 0 });
 const darkMat = new MeshStandardMaterial({ color: "#10151d", roughness: 0.5, metalness: 0.5 });
 const metalMat = new MeshStandardMaterial({ color: "#8b95a6", roughness: 0.25, metalness: 0.95 });
@@ -284,7 +287,7 @@ function Workstation({ index, position, drivers }: { index: number; position: [n
         <RoundedBox args={[0.84, 0.5, 0.035]} radius={0.015} smoothness={2} material={darkMat} castShadow />
         <mesh position={[0, 0.01, 0.019]}>
           <planeGeometry args={[0.79, 0.44]} />
-          <meshStandardMaterial ref={screen} color="#000" emissive="#ffffff" emissiveMap={tex} emissiveIntensity={1} toneMapped={false} />
+          <meshStandardMaterial ref={screen} color="#000" emissive="#ffffff" emissiveMap={tex} emissiveIntensity={1} toneMapped={false} polygonOffset polygonOffsetFactor={-2} polygonOffsetUnits={-2} />
         </mesh>
         <mesh position={[0, -0.33, -0.03]} material={metalMat}>
           <boxGeometry args={[0.05, 0.22, 0.03]} />
@@ -494,7 +497,11 @@ export function Office({
   /** Use the real 3D models (plants, armchairs, lounge). Off on phones and low-power devices. */
   detailed?: boolean;
 }) {
-  const edge = useRef<Mesh>(null);
+  const edgeMat = useMemo(
+    () => new MeshStandardMaterial({ color: "#000", emissive: palette.blue, emissiveIntensity: 1.2, toneMapped: false }),
+    [],
+  );
+  useEffect(() => () => edgeMat.dispose(), [edgeMat]);
   const p = useScenePalette();
   useEffect(() => {
     deskMat.map = woodTexture(p.wood);
@@ -510,8 +517,7 @@ export function Office({
   }, [p.carpet, p.carpetSeam]);
   useFrame(() => {
     const h = drivers.highlight?.() ?? 0;
-    const m = edge.current?.material as MeshStandardMaterial | undefined;
-    if (m) m.emissiveIntensity = p.edge + h * 3;
+    edgeMat.emissiveIntensity = p.edge + h * 3;
   });
 
   return (
@@ -520,14 +526,22 @@ export function Office({
       <RoundedBox args={[FLOOR.width, 0.3, FLOOR.depth]} radius={0.08} smoothness={3} position={[0, -0.05, 0]} receiveShadow>
         <meshStandardMaterial color={p.slab} roughness={0.85} metalness={0} />
       </RoundedBox>
-      {/* glowing edge — blooms */}
-      <mesh ref={edge} position={[0, 0.103, 0]}>
-        <boxGeometry args={[FLOOR.width + 0.02, 0.012, FLOOR.depth + 0.02]} />
-        <meshStandardMaterial color="#000" emissive={palette.blue} emissiveIntensity={1.2} toneMapped={false} />
-      </mesh>
-      <mesh position={[0, 0.111, 0]} rotation-x={-Math.PI / 2} receiveShadow>
-        <planeGeometry args={[FLOOR.width - 0.12, FLOOR.depth - 0.12]} />
-        <meshStandardMaterial map={carpet} roughness={0.95} metalness={0} />
+      {/* glowing edge: four thin strips around the border only. A full-size box here sat 2 mm under
+          the carpet and z-fought with it from far away (blue speckle on the floor). */}
+      {[
+        [0, (FLOOR.depth - EDGE) / 2, FLOOR.width, EDGE],
+        [0, -(FLOOR.depth - EDGE) / 2, FLOOR.width, EDGE],
+        [(FLOOR.width - EDGE) / 2, 0, EDGE, FLOOR.depth - EDGE * 2],
+        [-(FLOOR.width - EDGE) / 2, 0, EDGE, FLOOR.depth - EDGE * 2],
+      ].map(([x, z, w, d], i) => (
+        <mesh key={i} position={[x, 0.108, z]} material={edgeMat}>
+          <boxGeometry args={[w, 0.016, d]} />
+        </mesh>
+      ))}
+      <mesh position={[0, 0.112, 0]} rotation-x={-Math.PI / 2} receiveShadow>
+        <planeGeometry args={[FLOOR.width - EDGE * 2, FLOOR.depth - EDGE * 2]} />
+        {/* polygon offset keeps the carpet in front of the slab top at any camera distance */}
+        <meshStandardMaterial map={carpet} roughness={0.95} metalness={0} polygonOffset polygonOffsetFactor={-2} polygonOffsetUnits={-2} />
       </mesh>
 
       {furnished && (

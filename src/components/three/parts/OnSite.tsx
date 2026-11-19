@@ -287,7 +287,7 @@ export function OnSite({ drivers = {}, reducedMotion = false }: { drivers?: OnSi
           <cylinderGeometry args={[0.42, 0.46, 0.06, 48]} />
           <meshStandardMaterial color={sp.desk} roughness={0.35} metalness={0.1} />
         </mesh>
-        <mesh position={[0, 0.162, 0]} rotation-x={-Math.PI / 2}>
+        <mesh position={[0, 0.166, 0]} rotation-x={-Math.PI / 2}>
           <ringGeometry args={[0.3, 0.33, 48]} />
           <meshBasicMaterial color={palette.blue} toneMapped={false} />
         </mesh>

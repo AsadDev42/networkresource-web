@@ -166,9 +166,9 @@ function Unit({ index, drivers }: { index: number; drivers: RackDrivers }) {
         <meshStandardMaterial color={sp.rackBody} roughness={0.42} metalness={0.35} />
       </RoundedBox>
       {/* front panel */}
-      <mesh position={[0, 0, UNIT_D / 2 + 0.002]}>
+      <mesh position={[0, 0, UNIT_D / 2 + 0.005]}>
         <planeGeometry args={[UNIT_W - 0.08, UNIT_H - 0.03]} />
-        <meshStandardMaterial map={face} roughness={0.55} metalness={0.2} />
+        <meshStandardMaterial map={face} roughness={0.55} metalness={0.2} polygonOffset polygonOffsetFactor={-2} polygonOffsetUnits={-2} />
       </mesh>
       {/* rack ears */}
       {[-1, 1].map((s) => (
@@ -178,7 +178,7 @@ function Unit({ index, drivers }: { index: number; drivers: RackDrivers }) {
         </mesh>
       ))}
       {/* status strip */}
-      <mesh position={[0.3, 0, UNIT_D / 2 + 0.004]}>
+      <mesh position={[0.3, 0, UNIT_D / 2 + 0.009]}>
         <planeGeometry args={[0.2, 0.026]} />
         <meshStandardMaterial ref={leds} color="#000" emissive={unit.led} emissiveIntensity={2} toneMapped={false} />
       </mesh>

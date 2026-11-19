@@ -149,6 +149,15 @@ function CameraRig({ reduced }: { reduced: boolean }) {
     const lambda = reduced || !shiftNow.current.ready ? 1000 : 3.4;
     shiftNow.current.x = MathUtils.damp(shiftNow.current.x, sx, lambda, dt);
     shiftNow.current.y = MathUtils.damp(shiftNow.current.y, sy, lambda, dt);
+    // Depth range fitted to the current shot instead of a fixed 0.1–2000: depth precision depends on
+    // near/far, and a tight range stops surfaces that sit close together from flickering (z-fighting)
+    // in the far shots. Beyond `far` the fog has already faded everything into the background colour.
+    {
+      const d = camera.position.distanceTo(lookAt);
+      const r = MathUtils.lerp(SHOTS[idx].radius, SHOTS[next].radius, travel);
+      persp.near = Math.max(0.1, d * 0.04);
+      persp.far = d + r * 9 + 40;
+    }
     persp.setViewOffset(size.width, size.height, -shiftNow.current.x * size.width, shiftNow.current.y * size.height, size.width, size.height);
 
     if (!shiftNow.current.ready) {
