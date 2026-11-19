@@ -104,9 +104,9 @@ export function StudioGround({ visible }: { visible?: () => boolean }) {
 export function CinematicEffects({ theme = "dark" }: { theme?: SceneTheme }) {
   const p = SCENE[theme];
   return (
-    <EffectComposer multisampling={4}>
+    <EffectComposer multisampling={2}>
       {/* Ambient occlusion: soft contact darkening where objects meet — the biggest realism win */}
-      <N8AO aoRadius={1.1} distanceFalloff={0.8} intensity={theme === "light" ? 2.4 : 2.2} />
+      <N8AO halfRes depthAwareUpsampling aoRadius={1.1} distanceFalloff={0.8} intensity={theme === "light" ? 2.4 : 2.2} />
       <Bloom mipmapBlur luminanceThreshold={p.bloomThreshold} luminanceSmoothing={0.25} intensity={p.bloom} radius={0.72} />
       <Vignette offset={0.28} darkness={p.vignette} />
       {/* ACES gives dark scenes their filmic contrast but greys out a white background; neutral keeps whites white. */}

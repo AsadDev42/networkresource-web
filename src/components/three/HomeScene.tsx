@@ -1,8 +1,10 @@
 "use client";
 
-import { Suspense, memo, useEffect, useMemo, useRef, type ReactNode } from "react";
+import { Suspense, memo, useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { Canvas, useFrame, useThree } from "@react-three/fiber";
 import { Anchor } from "./Anchor";
+import { Prewarm } from "./Prewarm";
+import { PerformanceMonitor } from "@react-three/drei";
 import { SCENE, SceneThemeContext, type SceneTheme } from "./sceneTheme";
 import { ThemeFill, ThemeSync } from "./ThemeSync";
 import { CinematicEffects, ReflectiveGround, StudioEnvironment, StudioGround } from "./Cinematic";
@@ -447,17 +449,26 @@ function HomeScene({ active, reduced, lowPower, theme = "light" }: { active: boo
     return () => window.removeEventListener("pointermove", onMove);
   }, [reduced]);
 
+  // Pixel density adapts to the device: it drops when the frame rate does, so scrolling stays smooth.
+  const maxDpr = lowPower ? 1.25 : 1.5;
+  const [dpr, setDpr] = useState(maxDpr);
+
   return (
     <Canvas
       frameloop={active ? "always" : "never"}
       shadows={lowPower ? false : "percentage"}
-      dpr={[1, lowPower ? 1.25 : 1.75]}
+      dpr={dpr}
+      // Measure only on real resizes. Measuring on scroll re-sized the canvas whenever the sticky stage
+      // moved, which clears the WebGL buffer (a black flash) and rebuilds the effect buffers (a stutter).
+      resize={{ scroll: false, debounce: { scroll: 0, resize: 150 } }}
       camera={{ fov: 34, near: 0.1, far: 2000, position: [13.6, 10.6, 16.8] }}
       flat={!lowPower}
       gl={{ antialias: lowPower, powerPreference: "high-performance", alpha: false }}
       onCreated={({ gl }) => gl.setClearColor(SCENE[theme].bg)}
     >
       <SceneThemeContext.Provider value={theme}>
+      <PerformanceMonitor flipflops={2} onDecline={() => setDpr(1)} onIncline={() => setDpr(maxDpr)} onFallback={() => setDpr(1)} />
+      <Prewarm />
       <ChapterSmoother />
       <ThemeSync theme={theme} />
       <Lights shadows={!lowPower} theme={theme} reduced={reduced} />

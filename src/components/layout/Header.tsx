@@ -61,8 +61,8 @@ export function Header() {
   return (
     <header
       className={cx(
-        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-500",
-        scrolled || mobileOpen ? "border-b border-bone-50/[0.07] bg-ink-950/75 backdrop-blur-xl" : "border-b border-transparent",
+        "fixed inset-x-0 top-0 z-50 transition-[background-color,border-color] duration-500",
+        scrolled || mobileOpen ? "border-b border-bone-50/[0.07] bg-ink-950/95" : "border-b border-transparent",
       )}
     >
       <div className="container-x flex h-[var(--header-h)] items-center justify-between gap-6">

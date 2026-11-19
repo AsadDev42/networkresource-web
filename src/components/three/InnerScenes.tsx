@@ -8,6 +8,7 @@ import { Office } from "./parts/Office";
 import { RelocationRig, relocationState } from "./parts/Relocation";
 import { FLOOR_B_OFFSET, RACK_POS, palette, range, smooth } from "./math";
 import { CinematicEffects, StudioEnvironment } from "./Cinematic";
+import { Prewarm } from "./Prewarm";
 import { SCENE, SceneThemeContext, type SceneTheme } from "./sceneTheme";
 import { ThemeFill, ThemeSync } from "./ThemeSync";
 
@@ -105,7 +106,8 @@ function InnerScene({ variant, progress, reduced, active, theme = "light" }: { v
     <Canvas
       frameloop={active ? "always" : "never"}
       shadows="percentage"
-      dpr={[1, 1.6]}
+      dpr={[1, 1.5]}
+      resize={{ scroll: false, debounce: { scroll: 0, resize: 150 } }}
       camera={{ fov: 34, near: 0.1, far: 300, position: variant === "rack" ? [-2, 3, 3] : [12, 17, 30] }}
       flat
       gl={{ antialias: false, alpha: false }}
@@ -116,6 +118,7 @@ function InnerScene({ variant, progress, reduced, active, theme = "light" }: { v
       <ThemeFill theme={theme} />
       <StudioEnvironment />
       <CinematicEffects theme={theme} />
+      <Prewarm />
       <directionalLight position={[9, 16, 10]} intensity={2} color="#f4efe6" castShadow shadow-mapSize={[1024, 1024]} shadow-camera-left={-9} shadow-camera-right={9} shadow-camera-top={9} shadow-camera-bottom={-9} />
       <pointLight position={[RACK_POS[0] + 1.5, 2, RACK_POS[2] + 2.5]} intensity={8} distance={8} color={palette.blue} />
       <pointLight position={[-8, 3, 6]} intensity={5} distance={18} color={palette.signal} />

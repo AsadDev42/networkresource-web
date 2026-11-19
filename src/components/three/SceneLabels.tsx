@@ -24,7 +24,7 @@ function UnitTag({ title, detail, side }: { title: string; detail: string; side:
   return (
     <div className={`flex -translate-y-1/2 items-center gap-2 whitespace-nowrap ${side === "left" ? "-translate-x-full flex-row-reverse" : ""}`}>
       <span className="h-px w-6 bg-bone-50/40" />
-      <span className="rounded-lg border border-bone-50/10 bg-ink-900/92 px-2.5 py-1.5 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.35)] backdrop-blur">
+      <span className="rounded-lg border border-bone-50/10 bg-ink-900/92 px-2.5 py-1.5 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.35)]">
         <span className="block text-[12px] font-semibold leading-tight text-bone-50">{title}</span>
         <span className="block text-[10.5px] font-medium text-mist-400">{detail}</span>
       </span>
@@ -49,7 +49,7 @@ export function RelocationLabel() {
     <Label id="reloc-phase">
       <span
         data-text
-        className="t-label block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-bone-50/15 bg-ink-950/85 px-3 py-1.5 text-bone-50"
+        className="t-label block -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-full border border-bone-50/15 bg-ink-950/95 px-3 py-1.5 text-bone-50"
       />
     </Label>
   );
@@ -67,7 +67,7 @@ function Hotspot({ id, label, target }: { id: string; label: string; target: str
           if (window.__lenis) window.__lenis.scrollTo(el, { duration: 1.8 });
           else el.scrollIntoView();
         }}
-        className="flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full max-lg:hidden border border-bone-50/20 bg-ink-950/75 py-1 pl-1 pr-3 text-[11px] font-semibold text-bone-50 backdrop-blur transition-colors hover:border-bone-50/50"
+        className="flex -translate-x-1/2 -translate-y-1/2 items-center gap-2 rounded-full max-lg:hidden border border-bone-50/20 bg-ink-950/95 py-1 pl-1 pr-3 text-[11px] font-semibold text-bone-50 transition-colors hover:border-bone-50/50"
       >
         <span className="grid size-5 place-items-center rounded-full bg-signal-500/20">
           <span className="size-1.5 rounded-full bg-signal-500" />
@@ -84,13 +84,13 @@ export function HomeLabels() {
     <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
       <RackLabels />
       <Label id="noc">
-        <div className="-translate-y-1/2 whitespace-nowrap rounded-lg border border-bone-50/10 bg-ink-900/92 px-2.5 py-1.5 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.35)] backdrop-blur">
+        <div className="-translate-y-1/2 whitespace-nowrap rounded-lg border border-bone-50/10 bg-ink-900/92 px-2.5 py-1.5 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.35)]">
           <span className="t-label block text-blue-300">Network Operations Center</span>
           <span className="block text-[12px] text-mist-300">Monitoring 24 × 7</span>
         </div>
       </Label>
       <Label id="engineer">
-        <div className="-translate-x-1/2 -translate-y-[calc(100%+8px)] whitespace-nowrap text-center rounded-lg border border-bone-50/10 bg-ink-900/92 px-2.5 py-1.5 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.35)] backdrop-blur">
+        <div className="-translate-x-1/2 -translate-y-[calc(100%+8px)] whitespace-nowrap text-center rounded-lg border border-bone-50/10 bg-ink-900/92 px-2.5 py-1.5 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.35)]">
           <span className="t-label block text-signal-400">On site</span>
           <span className="block text-[12px] font-semibold text-bone-50">Your primary engineer</span>
         </div>
@@ -98,7 +98,7 @@ export function HomeLabels() {
       <RelocationLabel />
       {company.offices.map((o, i) => (
         <Label key={o.region} id={`bay-${i}`}>
-          <div className="-translate-x-1/2 -translate-y-[calc(100%+6px)] whitespace-nowrap text-center rounded-lg border border-bone-50/10 bg-ink-900/92 px-2.5 py-1.5 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.35)] backdrop-blur">
+          <div className="-translate-x-1/2 -translate-y-[calc(100%+6px)] whitespace-nowrap text-center rounded-lg border border-bone-50/10 bg-ink-900/92 px-2.5 py-1.5 shadow-[0_6px_20px_-8px_rgba(0,0,0,0.35)]">
             <span className="t-label block text-signal-400">{o.region}</span>
             <span className="block text-[12.5px] font-semibold text-bone-50">{o.city}</span>
           </div>

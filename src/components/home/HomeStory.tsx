@@ -68,7 +68,7 @@ function Chapter({
           <div
             data-panel
             className={cx(
-              "pointer-events-auto relative w-full rounded-[var(--radius-card)] border border-bone-50/[0.08] bg-ink-950/85 p-6 backdrop-blur-md lg:border-0 lg:bg-transparent lg:p-0 lg:backdrop-blur-none",
+              "pointer-events-auto relative w-full rounded-[var(--radius-card)] border border-bone-50/[0.08] bg-ink-950/95 p-6 lg:border-0 lg:bg-transparent lg:p-0",
               l.panel,
             )}
           >
