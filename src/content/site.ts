@@ -69,15 +69,22 @@ export const navigation: NavGroup[] = [
     label: "Services",
     href: "/services",
     children: [
+      { label: "Managed IT", href: "/service-plans", description: "Flat-fee support plans" },
+      { label: "Cybersecurity", href: "/services/cybersecurity", description: "Firewalls, anti-virus and backups" },
       {
-        label: "Network Services",
+        label: "Network Infrastructure",
         href: "/services/network-services",
         description: "Microsoft, Apple, Cisco and Linux engineering",
       },
       {
-        label: "Network Relocation",
+        label: "Office Relocation",
         href: "/services/network-relocation",
         description: "Office moves with zero surprises",
+      },
+      {
+        label: "Property Management IT",
+        href: "/services/property-management-it",
+        description: "IT for property management teams",
       },
       {
         label: "Advisory Consulting",
@@ -113,6 +120,40 @@ export const navigation: NavGroup[] = [
   { label: "Contact", href: "/contact" },
 ];
 
+/** The five headline services shown as buttons under the homepage hero (client brief, Nov 2026). */
+export const coreServices = [
+  {
+    key: "managed",
+    title: "Managed IT",
+    line: "Flat-fee support, 24x7 monitoring and a help desk.",
+    href: "/service-plans",
+  },
+  {
+    key: "security",
+    title: "Cybersecurity",
+    line: "Firewalls, anti-virus, e-mail filtering and backup checks.",
+    href: "/services/cybersecurity",
+  },
+  {
+    key: "network",
+    title: "Network Infrastructure",
+    line: "Servers, switches, routers and power, set up and managed.",
+    href: "/services/network-services",
+  },
+  {
+    key: "relocation",
+    title: "Office Relocation",
+    line: "Your equipment and circuits moved, tested and live on day one.",
+    href: "/services/network-relocation",
+  },
+  {
+    key: "property",
+    title: "Property Management IT",
+    line: "Support for property management offices and leasing teams.",
+    href: "/services/property-management-it",
+  },
+] as const;
+
 export const services = [
   {
     slug: "network-services",
@@ -123,17 +164,33 @@ export const services = [
     points: ["Microsoft, Apple, Cisco and Linux", "Servers, email, databases, security", "Vendor-neutral recommendations"],
   },
   {
+    slug: "cybersecurity",
+    href: "/services/cybersecurity",
+    index: "02",
+    title: "Cybersecurity",
+    short: "Firewalls, managed anti-virus, e-mail filtering, patching and monitored backups, run by one team.",
+    points: ["Firewall and VPN management", "Managed anti-virus and patching", "Backup monitoring and audits"],
+  },
+  {
     slug: "network-relocation",
     href: "/services/network-relocation",
-    index: "02",
+    index: "03",
     title: "Network Relocation",
     short: "We manage every facet of moving your computer equipment and telecom circuits to your new office.",
     points: ["Dedicated lead engineer", "Full backup before anything moves", "On site when you go live"],
   },
   {
+    slug: "property-management-it",
+    href: "/services/property-management-it",
+    index: "04",
+    title: "Property Management IT",
+    short: "On-site and remote IT support for property management offices, leasing teams and multi-unit communities.",
+    points: ["Office and leasing support", "Networks across sites", "Security and backups"],
+  },
+  {
     slug: "advisory-consulting",
     href: "/services/advisory-consulting",
-    index: "03",
+    index: "05",
     title: "Advisory Consulting",
     short: "We help you find what makes your organization more efficient and what is superfluous to your needs.",
     points: ["Information-flow assessment", "Standards and policy", "Specific, costed recommendations"],
@@ -141,7 +198,7 @@ export const services = [
   {
     slug: "it-distribution",
     href: "/it-distribution",
-    index: "04",
+    index: "06",
     title: "IT Distribution",
     short: "Wholesale supply of hardware, software, digital supplies and imaging products.",
     points: ["Hardware and software", "Digital supplies", "Imaging products"],

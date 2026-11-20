@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { CTABand, PageHero, RelatedLinks } from "@/components/sections/shared";
-import { ProgressScene } from "@/components/three/ProgressScene";
 import { Reveal, SplitHeading } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/primitives";
 import { relocationBenefits, relocationSteps, relocationTeam } from "@/content/details";
@@ -39,35 +38,20 @@ export default function RelocationPage() {
         <Button href="/request-a-quote">Plan your move</Button>
       </PageHero>
 
-      <ProgressScene
-        variant="relocation"
-        layout="overlay"
-        label="3D illustration: equipment is packed into crates at the current office, travels to the new office, and is reinstalled and tested."
-      >
-        <div className="container-x pointer-events-none">
-          <div className="flex h-[70svh] items-end pb-16">
-            <div className="pointer-events-auto max-w-[32rem]">
-              <SplitHeading lines={["The five steps to a", "*successful* relocation"]} className="t-h2" />
-            </div>
-          </div>
-          <ol className="grid">
+      <section className="section-y border-t border-bone-50/[0.07]" aria-labelledby="steps-heading">
+        <div className="container-x">
+          <SplitHeading id="steps-heading" lines={["The five steps to a", "*successful* relocation"]} className="t-h2" />
+          <Reveal stagger={0.07} as="ol" className="mt-14 grid">
             {relocationSteps.map((s, i) => (
-              <li key={s.title} data-step data-state="idle" className="group flex min-h-[95svh] items-center">
-                <div className="pointer-events-auto max-w-[30rem] rounded-[var(--radius-card)] border border-bone-50/10 bg-ink-950/80 p-7 backdrop-blur-md transition-[border-color] duration-500 group-data-[state=active]:border-signal-500/50 md:p-9">
-                  <p className="flex items-center gap-3 font-mono text-[0.8rem]">
-                    <span className="text-signal-400">{String(i + 1).padStart(2, "0")}</span>
-                    <span className="h-px w-8 bg-bone-50/20" aria-hidden="true" />
-                    <span className="uppercase tracking-[0.14em] text-mist-400">Step {i + 1} of 5</span>
-                  </p>
-                  <h3 className="t-h2 mt-5">{s.title}</h3>
-                  <p className="mt-5 text-mist-300">{s.body}</p>
-                </div>
+              <li key={s.title} className="grid gap-4 border-t border-bone-50/10 py-8 md:grid-cols-12 md:gap-8">
+                <span className="font-mono text-[0.85rem] font-semibold text-signal-500 md:col-span-2">Step {i + 1}</span>
+                <h3 className="t-h3 md:col-span-4">{s.title}</h3>
+                <p className="text-mist-300 md:col-span-6">{s.body}</p>
               </li>
             ))}
-          </ol>
-          <div className="h-[30svh]" />
+          </Reveal>
         </div>
-      </ProgressScene>
+      </section>
 
       <section className="surface-light section-y" aria-labelledby="benefits-heading">
         <div className="container-x grid gap-16 lg:grid-cols-12">

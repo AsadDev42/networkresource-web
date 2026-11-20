@@ -7,6 +7,8 @@ const routes: Array<[string, number]> = [
   ["/", 1],
   ["/services", 0.9],
   ["/services/network-services", 0.8],
+  ["/services/cybersecurity", 0.8],
+  ["/services/property-management-it", 0.8],
   ["/services/network-relocation", 0.8],
   ["/services/advisory-consulting", 0.8],
   ["/it-distribution", 0.6],

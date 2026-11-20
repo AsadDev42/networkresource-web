@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { HomeStory } from "@/components/home/HomeStory";
-import { ServicesShowcase } from "@/components/home/ServicesShowcase";
+import { HomeHero } from "@/components/home/HomeHero";
 import { StatsBento } from "@/components/home/StatsBento";
 import { PartnerLogos } from "@/components/home/PartnerLogos";
 import { CTABand } from "@/components/sections/shared";
@@ -10,7 +9,7 @@ import { ArrowIcon, Button, cx } from "@/components/ui/primitives";
 import { capabilities, outcomes } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: { absolute: "Network Resource | Managed IT Support for Bay Area Businesses" },
+  title: { absolute: "Network Resource | Business IT Support for the San Francisco Bay Area" },
   description:
     "Flat-fee managed IT, 24/7 network monitoring, office network relocation and advisory consulting for Bay Area businesses since 1998.",
   alternates: { canonical: "/" },
@@ -44,9 +43,8 @@ const plans = [
 export default function HomePage() {
   return (
     <>
-      <HomeStory />
+      <HomeHero />
 
-      <ServicesShowcase />
 
       {/* Capabilities */}
       <section className="overflow-hidden border-y border-bone-50/[0.07] bg-ink-900 py-6" aria-label="Capabilities">

@@ -1,13 +1,12 @@
 # Network Resource website
 
-Redesign of [networkresource.com](https://networkresource.com), a Bay Area managed IT provider. The home page tells the company's story with a scroll-driven 3D office built in React Three Fiber.
+Redesign of [networkresource.com](https://networkresource.com), a San Francisco Bay Area IT provider. The home page leads with the headline "Business IT Support. Simplified.", a photo of an engineer with a client, and the five core services as buttons.
 
 Live preview: https://asaddev42.github.io/networkresource-web/
 
 ## Stack
 
 - Next.js (App Router) as a static export, TypeScript, Tailwind CSS v4
-- three.js, React Three Fiber, drei and postprocessing for the 3D scenes
 - GSAP ScrollTrigger and Lenis for scroll and motion
 - Light and dark themes (light is the default)
 
@@ -38,4 +37,4 @@ The site is static, so the quote form has no server of its own. By default it op
 
 ## Credits
 
-3D furniture models are CC0 from [Poly Haven](https://polyhaven.com). See `public/models/CREDITS.md`.
+The homepage photo is by Mikhail Nilov on [Pexels](https://www.pexels.com/photo/a-man-and-woman-talking-in-the-office-7988670/) (Pexels license, free for commercial use). Replace `src/assets/hero-support.jpg` to change it.

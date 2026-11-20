@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { CTABand, PageHero, RelatedLinks, SectionHeading, SpecList } from "@/components/sections/shared";
-import { ProgressScene } from "@/components/three/ProgressScene";
 import { Reveal } from "@/components/ui/Reveal";
 import { Button } from "@/components/ui/primitives";
 import { linuxStack, networkPractices } from "@/content/details";
@@ -50,12 +49,8 @@ export default function NetworkServicesPage() {
         </Reveal>
       </section>
 
-      <ProgressScene
-        variant="rack"
-        label="3D illustration: a network rack separating into firewall, switch, servers, storage and power units as you scroll."
-        className="border-t border-bone-50/[0.07]"
-      >
-        <div className="px-[var(--gutter)] py-20 lg:px-14 lg:py-[22vh]">
+      <section className="border-t border-bone-50/[0.07]" aria-label="Practices">
+        <div className="container-x section-y">
           <h2 className="t-h2 max-w-[34rem]">Six practices, one accountable team.</h2>
           <nav aria-label="Practices" className="mt-8 flex flex-wrap gap-2">
             {networkPractices.map((p) => (
@@ -81,7 +76,7 @@ export default function NetworkServicesPage() {
             ))}
           </div>
         </div>
-      </ProgressScene>
+      </section>
 
       <section className="surface-light section-y" aria-labelledby="stack-heading">
         <div className="container-x">

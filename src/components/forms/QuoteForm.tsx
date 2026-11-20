@@ -7,8 +7,10 @@ const SERVICES = [
   "Free network assessment",
   "NR Remote plan",
   "NR Complete plan",
+  "Cybersecurity",
   "Network services / project",
   "Network relocation",
+  "Property management IT",
   "Advisory consulting",
   "IT distribution (hardware / software)",
   "Partial client list",
@@ -20,6 +22,8 @@ const TOPIC_MAP: Record<string, string> = {
   remote: "NR Remote plan",
   complete: "NR Complete plan",
   relocation: "Network relocation",
+  security: "Cybersecurity",
+  property: "Property management IT",
 };
 
 type Status = { state: "idle" | "sending" | "sent" | "error"; message?: string };
