@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 const support = [
   {
     title: "Office & leasing support",
-    body: "Help desk and on-site engineers for your management office and leasing teams, so day-to-day problems get fixed fast.",
+    body: "Help desk and on-site engineers for your management office and leasing teams.",
   },
   {
     title: "Networks across sites",
@@ -33,7 +33,7 @@ const support = [
   },
   {
     title: "One flat fee",
-    body: "Managed plans priced by your number of servers and workstations, with no surprise invoices.",
+    body: "Managed plans priced by your number of servers and workstations.",
   },
 ] as const;
 
@@ -53,10 +53,7 @@ export default function PropertyManagementPage() {
           <h2 id="pm-heading" className="sr-only">
             How we support property management
           </h2>
-          <SectionHeading
-            title={["Everything your offices", "*depend on*"]}
-            lead="The same managed service our business clients rely on, set up around how property management teams work."
-          />
+          <SectionHeading title={["Everything your offices", "*depend on*"]} />
           <div className="mt-14">
             <FeatureGrid items={support} />
           </div>

@@ -47,14 +47,25 @@ export default function HomePage() {
 
 
       {/* Capabilities */}
-      <section className="overflow-hidden border-y border-bone-50/[0.07] bg-ink-900 py-6" aria-label="Capabilities">
-        <ul className="container-x flex flex-wrap justify-center gap-x-8 gap-y-3">
-          {capabilities.map((c) => (
-            <li key={c} className="whitespace-nowrap font-display text-[1.05rem] font-medium text-mist-300">
-              {c}
-            </li>
-          ))}
-        </ul>
+      <section className="border-y border-bone-50/[0.07] bg-ink-900 py-12 md:py-16" aria-labelledby="capabilities-heading">
+        <div className="container-x grid gap-8 lg:grid-cols-12 lg:gap-10">
+          <div className="lg:col-span-3">
+            <h2 id="capabilities-heading" className="font-display text-[1.375rem] font-semibold leading-snug tracking-[-0.02em] text-bone-50">
+              What we handle every day
+            </h2>
+            <p className="mt-2 text-[0.95rem] text-mist-400">For offices across the Bay Area</p>
+          </div>
+          <ul className="grid gap-x-10 sm:grid-cols-2 lg:col-span-9">
+            {capabilities.map((c) => (
+              <li key={c} className="flex items-center gap-3 border-t border-bone-50/[0.08] py-4 text-[1rem] text-bone-50">
+                <svg viewBox="0 0 16 16" className="size-4 shrink-0 text-blue-300" aria-hidden="true">
+                  <path d="m3 8.5 3 3 7-7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                {c}
+              </li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <StatsBento />

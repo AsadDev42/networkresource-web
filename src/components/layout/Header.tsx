@@ -155,7 +155,7 @@ export function Header() {
             href="/request-a-quote"
             className="hidden min-h-10 items-center gap-2 rounded-full bg-bone-50 px-5 text-[0.875rem] font-medium text-ink-950 transition-colors hover:bg-bone-200 sm:inline-flex xl:ml-4"
           >
-            Free assessment
+            Request a consultation
           </Link>
           <button
             type="button"
@@ -207,7 +207,7 @@ export function Header() {
           </ul>
           <div className="grid gap-4">
             <Link href="/request-a-quote" className="inline-flex min-h-12 items-center justify-center rounded-full bg-signal-500 font-medium text-white">
-              Request a free network assessment
+              Request a consultation
             </Link>
             <a href={`tel:${company.phones.tollFree.tel}`} className="text-center font-mono text-sm text-mist-300">
               Call {company.phones.tollFree.display}

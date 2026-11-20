@@ -20,7 +20,7 @@ export default function ServicesPage() {
         title={["A complete portfolio", "of *IT expertise*"]}
         lead="Planning, systems administration, office moves and help choosing what to buy."
       >
-        <Button href="/request-a-quote">Request a free assessment</Button>
+        <Button href="/request-a-quote">Request a consultation</Button>
         <Button href="/service-plans" variant="ghost">
           See flat-fee plans
         </Button>

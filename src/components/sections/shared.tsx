@@ -111,7 +111,7 @@ export function CTABand({
           <Reveal>
             <p className="t-lead mt-7 max-w-[34rem] text-mist-300">{body}</p>
             <div className="mt-10 flex flex-wrap items-center gap-x-7 gap-y-4">
-              <Button href="/request-a-quote">Request a free assessment</Button>
+              <Button href="/request-a-quote">Request a consultation</Button>
               <a href={`tel:${company.phones.tollFree.tel}`} className="font-semibold text-mist-300 transition-colors hover:text-bone-50">
                 or call {company.phones.tollFree.display}
               </a>

@@ -21,7 +21,7 @@ const protections = [
   },
   {
     title: "E-mail filtering",
-    body: "Managed e-mail filtering that stops one of the most common causes of network interruption before it reaches your team.",
+    body: "Managed e-mail filtering, part of our protection against the most common causes of network interruption.",
   },
   {
     title: "Patch management",
@@ -43,7 +43,7 @@ export default function CybersecurityPage() {
       <PageHero
         crumbs={[{ label: "Services", href: "/services" }, { label: "Cybersecurity" }]}
         title={["Keep your business", "*protected*"]}
-        lead="Business firewalls, managed anti-virus, e-mail filtering and verified backups, watched around the clock by our Network Operations Center."
+        lead="Business firewalls, managed anti-virus, e-mail filtering and monitored backups, watched around the clock by our Network Operations Center."
       >
         <Button href="/request-a-quote?topic=security">Request a security review</Button>
       </PageHero>
@@ -53,17 +53,14 @@ export default function CybersecurityPage() {
           <h2 id="protect-heading" className="sr-only">
             What we protect
           </h2>
-          <SectionHeading
-            title={["Six layers,", "*one team*"]}
-            lead="Every layer is part of the same managed service, so nothing falls between vendors."
-          />
+          <SectionHeading title={["What we *protect*"]} />
           <div className="mt-14">
             <FeatureGrid items={protections} />
           </div>
         </div>
       </section>
 
-      <CTABand title={["Find your gaps", "*before attackers do.*"]} body="Start with a free assessment of your network, firewall and backups." />
+      <CTABand body="Find out where your network, firewall and backups stand." />
     </>
   );
 }
