@@ -83,8 +83,11 @@ function Field({
   );
 }
 
-/** Links such as /request-a-quote?topic=client-list preselect the service. */
-export function QuoteForm() {
+/** Links such as /request-a-quote?topic=client-list preselect the service.
+ *  The "quick" variant is the short homepage form from the original site: name, email, phone and message. */
+export function QuoteForm({ variant = "full" }: { variant?: "full" | "quick" }) {
+  const quick = variant === "quick";
+  const noteId = useId();
   const [status, setStatus] = useState<Status>({ state: "idle" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   // The site is static, so ?topic= is read from the address in the browser (empty while prerendering).
@@ -111,7 +114,7 @@ export function QuoteForm() {
       company: clip(raw.company, 160),
       email: clip(raw.email, 200),
       phone: clip(raw.phone, 40),
-      service: clip(raw.service, 80),
+      service: quick ? "Quick service request" : clip(raw.service, 80),
       message: clip(raw.message, 4000),
     };
     const found: Record<string, string> = {};
@@ -129,10 +132,11 @@ export function QuoteForm() {
       // No form service yet: hand the request to the visitor's email app, addressed to sales.
       const lines = [`Name: ${data.name}`];
       if (data.company) lines.push(`Company: ${data.company}`);
-      lines.push(`Email: ${data.email}`, `Phone: ${data.phone}`, `Interested in: ${data.service}`);
+      lines.push(`Email: ${data.email}`, `Phone: ${data.phone}`);
+      if (!quick) lines.push(`Interested in: ${data.service}`);
       if (data.message) lines.push("", data.message);
       const body = lines.join("\n");
-      window.location.href = `mailto:${SALES}?subject=${encodeURIComponent(`Quote request: ${data.service}`)}&body=${encodeURIComponent(body)}`;
+      window.location.href = `mailto:${SALES}?subject=${encodeURIComponent(quick ? "Quick service request" : `Quote request: ${data.service}`)}&body=${encodeURIComponent(body)}`;
       setStatus({
         state: "sent",
         message: `Your email app has opened with the request filled in. Press send to deliver it to ${SALES}. Nothing opened? Email ${SALES} or call 800.553.7800.`,
@@ -146,7 +150,7 @@ export function QuoteForm() {
       const res = await fetch(ENDPOINT, {
         method: "POST",
         headers: { "content-type": "application/json", accept: "application/json" },
-        body: JSON.stringify({ ...data, source: "request-a-quote" }),
+        body: JSON.stringify({ ...data, source: quick ? "home-quick-service" : "request-a-quote" }),
       });
       if (!res.ok) throw new Error(String(res.status));
       form.reset();
@@ -158,15 +162,20 @@ export function QuoteForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} noValidate className="grid gap-4" aria-describedby="form-note">
-      <div className="grid gap-4 sm:grid-cols-2">
+    <form onSubmit={onSubmit} noValidate className="relative grid gap-4" aria-describedby={noteId}>
+      {quick ? (
         <Field label="Name" name="name" required autoComplete="name" error={errors.name} />
-        <Field label="Company" name="company" autoComplete="organization" />
-      </div>
+      ) : (
+        <div className="grid gap-4 sm:grid-cols-2">
+          <Field label="Name" name="name" required autoComplete="name" error={errors.name} />
+          <Field label="Company" name="company" autoComplete="organization" />
+        </div>
+      )}
       <div className="grid gap-4 sm:grid-cols-2">
         <Field label="Email" name="email" type="email" required autoComplete="email" error={errors.email} />
         <Field label="Phone" name="phone" type="tel" required autoComplete="tel" error={errors.phone} />
       </div>
+      {!quick && (
       <div className="relative">
         <select
           id={serviceId}
@@ -188,6 +197,7 @@ export function QuoteForm() {
           <path d="m1 1 4 4 4-4" fill="none" stroke="currentColor" strokeWidth="1.3" />
         </svg>
       </div>
+      )}
       <Field label="Message" name="message" textarea />
       {/* honeypot */}
       <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
@@ -197,7 +207,7 @@ export function QuoteForm() {
         </label>
       </div>
       <div className="mt-2 flex flex-wrap items-center justify-between gap-4">
-        <p id="form-note" className="text-[0.85rem] text-mist-500">
+        <p id={noteId} className="text-[0.85rem] text-mist-500">
           Fields marked * are required. We only use your details to respond to this request.
         </p>
         <button

@@ -51,13 +51,17 @@
   /* Side gutters: 20 / 32 / 48 / 64px — content never hugs the screen edge */
   --gutter: 1.25rem;
   --container: 82.5rem;
-  --header-h: 4.5rem;
+  /* Fixed header = menu row + the contact bar above it (the bar shows from tablet width up) */
+  --nav-h: 4.5rem;
+  --bar-h: 0rem;
+  --header-h: calc(var(--nav-h) + var(--bar-h));
   color-scheme: dark;
 }
 
 @media (min-width: 48rem) {
   :root {
     --gutter: 2rem;
+    --bar-h: 2.25rem;
   }
 }
 

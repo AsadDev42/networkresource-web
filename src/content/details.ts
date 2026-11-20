@@ -144,15 +144,33 @@ export const networkPractices: Practice[] = [
   {
     id: "mobile",
     title: "Mobile Business Solutions",
-    intro: "Server-side and handheld support for enterprise mobile platforms, including legacy BlackBerry Enterprise Server, Good and Microsoft mobile deployments.",
+    intro: "Server-side and handheld support for enterprise mobile platforms.",
     groups: [
       {
-        title: "Mobile platforms",
+        title: "BlackBerry",
+        items: [
+          "Needs analysis and capacity planning",
+          "Support and deployment of BlackBerry Enterprise Server 3.x and 4.x",
+          "New installations or support for existing systems",
+          "Handheld support",
+        ],
+      },
+      {
+        title: "GoodLink",
+        items: [
+          "Needs analysis and capacity planning",
+          "Support and deployment of GoodLink 3.x and 4.x",
+          "New installations and support for existing systems",
+          "Handheld device support",
+        ],
+      },
+      {
+        title: "Microsoft Mobile",
         items: [
           "Needs analysis and capacity planning",
           "Server support and configuration",
-          "New installations and support for existing systems",
-          "Handheld and mobile device support",
+          "New installations and support for existing installs",
+          "Mobile device support",
         ],
       },
     ],
@@ -341,7 +359,7 @@ export const partners = [
   },
   {
     name: "Microsoft",
-    role: "Microsoft Certified Partner",
+    role: "Microsoft Certified Partner (MCSP)",
     body: "A demonstrated high level of expertise in delivering quality Microsoft solutions, with access to the newest Microsoft software, tools and resources.",
   },
   {
@@ -367,7 +385,7 @@ export const partners = [
   {
     name: "Aladdin",
     role: "Authentication & content security",
-    body: "eToken two-factor USB authentication, the eSafe anti-virus and content security suite, and HASP / Hardlock software protection.",
+    body: "eToken two-factor USB authentication, the eSafe anti-virus and content security suite, HASP / Hardlock software protection, and Privilege software commerce solutions.",
   },
   {
     name: "EVault",

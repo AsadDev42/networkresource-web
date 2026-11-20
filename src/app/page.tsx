@@ -6,7 +6,13 @@ import { PartnerLogos } from "@/components/home/PartnerLogos";
 import { CTABand } from "@/components/sections/shared";
 import { Reveal, SplitHeading } from "@/components/ui/Reveal";
 import { ArrowIcon, Button, cx } from "@/components/ui/primitives";
-import { capabilities, outcomes } from "@/content/site";
+import { QuoteForm } from "@/components/forms/QuoteForm";
+import { capabilities, company, outcomes, services } from "@/content/site";
+
+/** The four services the original homepage featured with "Read more" links. */
+const FEATURED = ["network-services", "network-relocation", "advisory-consulting", "it-distribution"]
+  .map((slug) => services.find((s) => s.slug === slug))
+  .filter((s): s is (typeof services)[number] => Boolean(s));
 
 export const metadata: Metadata = {
   title: { absolute: "Network Resource | Business IT Support for the San Francisco Bay Area" },
@@ -45,26 +51,44 @@ export default function HomePage() {
     <>
       <HomeHero />
 
-
-      {/* Capabilities */}
-      <section className="border-y border-bone-50/[0.07] bg-ink-900 py-12 md:py-16" aria-labelledby="capabilities-heading">
-        <div className="container-x grid gap-8 lg:grid-cols-12 lg:gap-10">
-          <div className="lg:col-span-3">
-            <h2 id="capabilities-heading" className="font-display text-[1.375rem] font-semibold leading-snug tracking-[-0.02em] text-bone-50">
-              What we handle every day
+      {/* Services we provide + quick service form (both from the original homepage) */}
+      <section className="section-y border-y border-bone-50/[0.07] bg-ink-900" aria-labelledby="capabilities-heading">
+        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
+          <div className="lg:col-span-7">
+            <h2 id="capabilities-heading" className="t-h2">
+              Services we <span className="t-accent">provide</span>
             </h2>
-            <p className="mt-2 text-[0.95rem] text-mist-400">For offices across the Bay Area</p>
+            <p className="t-lead mt-6 max-w-[38rem] text-mist-300">
+              Network Resource brings clear thinking to the simplest and the most complex IT issues. Whether it&apos;s
+              fixed-fee monthly support or complex IT project management, we have the depth and expertise to handle it.
+            </p>
+            <ul className="mt-10 grid gap-x-10 sm:grid-cols-2">
+              {capabilities.map((c) => (
+                <li key={c} className="flex items-center gap-3 border-t border-bone-50/[0.08] py-4 text-[1rem] text-bone-50">
+                  <svg viewBox="0 0 16 16" className="size-4 shrink-0 text-blue-300" aria-hidden="true">
+                    <path d="m3 8.5 3 3 7-7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                  {c}
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="grid gap-x-10 sm:grid-cols-2 lg:col-span-9">
-            {capabilities.map((c) => (
-              <li key={c} className="flex items-center gap-3 border-t border-bone-50/[0.08] py-4 text-[1rem] text-bone-50">
-                <svg viewBox="0 0 16 16" className="size-4 shrink-0 text-blue-300" aria-hidden="true">
-                  <path d="m3 8.5 3 3 7-7" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-                {c}
-              </li>
-            ))}
-          </ul>
+          <div className="lg:col-span-5">
+            <div className="rounded-[var(--radius-card)] border border-bone-50/10 bg-ink-950 p-6 md:p-8">
+              <h3 id="quick-service" className="t-h3">
+                Quick service for your IT needs
+              </h3>
+              <p className="mt-2 text-[0.95rem] text-mist-400">
+                Or call{" "}
+                <a href={`tel:${company.phones.tollFree.tel}`} className="font-semibold text-bone-50 underline decoration-current/25 underline-offset-4 hover:decoration-current">
+                  {company.phones.tollFree.display}
+                </a>
+              </p>
+              <div className="mt-6">
+                <QuoteForm variant="quick" />
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -96,11 +120,45 @@ export default function HomePage() {
               </li>
             ))}
           </Reveal>
-          <div className="mt-12">
+          <div className="mt-12 flex flex-wrap items-center gap-x-7 gap-y-4">
             <Button href="/about" variant="ghost">
               About Network Resource
             </Button>
+            <a href={`tel:${company.phones.tollFree.tel}`} className="font-semibold text-mist-300 transition-colors hover:text-bone-50">
+              Call us now: {company.phones.tollFree.display}
+            </a>
           </div>
+        </div>
+      </section>
+
+      {/* The four services the original homepage featured */}
+      <section className="section-y border-t border-bone-50/[0.07] bg-ink-950" aria-labelledby="featured-heading">
+        <div className="container-x">
+          <SplitHeading id="featured-heading" lines={["How we keep your", "business *running*"]} className="t-h2" />
+          <Reveal stagger={0.07} as="ul" className="mt-12 grid gap-4 md:grid-cols-2">
+            {FEATURED.map((s) => (
+              <li key={s.slug}>
+                <Link
+                  href={s.href}
+                  className="group flex h-full flex-col rounded-[var(--radius-card)] border border-bone-50/10 bg-ink-900 p-7 transition-[border-color,box-shadow,transform] duration-300 ease-[var(--ease-out-expo)] hover:-translate-y-1 hover:border-blue-400/60 hover:shadow-[0_18px_36px_-22px_rgba(18,58,156,0.45)] md:p-8"
+                >
+                  <h3 className="t-h3">{s.title}</h3>
+                  <p className="mt-3 max-w-[30rem] text-mist-400">{s.short}</p>
+                  <ul className="mt-6 flex flex-wrap gap-2">
+                    {s.points.map((p) => (
+                      <li key={p} className="rounded-full border border-bone-50/10 px-3 py-1 text-[0.8rem] text-mist-400">
+                        {p}
+                      </li>
+                    ))}
+                  </ul>
+                  <span className="mt-auto inline-flex items-center gap-2 pt-8 font-semibold text-bone-50">
+                    Read more
+                    <ArrowIcon className="transition-[transform,color] duration-300 group-hover:translate-x-1 group-hover:text-signal-500" />
+                  </span>
+                </Link>
+              </li>
+            ))}
+          </Reveal>
         </div>
       </section>
 

@@ -65,7 +65,24 @@ export function Header() {
         scrolled || mobileOpen ? "border-b border-bone-50/[0.07] bg-ink-950/95" : "border-b border-transparent",
       )}
     >
-      <div className="container-x flex h-[var(--header-h)] items-center justify-between gap-6">
+      {/* Contact bar from the original site and the client's mockup */}
+      <div className="hidden h-[var(--bar-h)] bg-[#0b1d4a] text-[0.8125rem] text-white/85 md:block">
+        <div className="container-x flex h-full items-center justify-between gap-6">
+          <p className="flex min-w-0 items-center gap-2 truncate">
+            <span className="size-1.5 shrink-0 rounded-full bg-signal-500" aria-hidden="true" />
+            <span className="truncate">San Francisco Bay Area business &amp; property management IT · Onsite &amp; remote support</span>
+          </p>
+          <div className="flex shrink-0 items-center gap-6">
+            <a href={`mailto:${company.emails[0].address}`} className="hidden transition-colors hover:text-white lg:inline">
+              {company.emails[0].address}
+            </a>
+            <a href={`tel:${company.phones.tollFree.tel}`} className="font-semibold text-white transition-colors hover:text-white/80">
+              {company.phones.tollFree.display}
+            </a>
+          </div>
+        </div>
+      </div>
+      <div className="container-x flex h-[var(--nav-h)] items-center justify-between gap-6">
         <Link href="/" className="relative z-10 shrink-0 text-bone-50" aria-label="Network Resource home">
           <Logo />
         </Link>
@@ -145,12 +162,6 @@ export function Header() {
 
         <div className="flex items-center gap-2">
           <ThemeToggle className="relative z-10" />
-          <a
-            href={`tel:${company.phones.tollFree.tel}`}
-            className="hidden font-mono text-[0.8rem] tracking-wide text-mist-300 transition-colors hover:text-bone-50 xl:block"
-          >
-            {company.phones.tollFree.display}
-          </a>
           <Link
             href="/request-a-quote"
             className="hidden min-h-10 items-center gap-2 rounded-full bg-bone-50 px-5 text-[0.875rem] font-medium text-ink-950 transition-colors hover:bg-bone-200 sm:inline-flex xl:ml-4"
